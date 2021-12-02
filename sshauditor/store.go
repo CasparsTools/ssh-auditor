@@ -115,10 +115,10 @@ func (s *SQLiteStore) Init() error {
 func (s *SQLiteStore) Begin() (*sqlx.Tx, error) {
 	if s.tx != nil {
 		s.txDepth += 1
-		//log.Printf("Returning existing transaction: depth=%d\n", s.txDepth)
+		log.Printf("Returning existing transaction: depth=%d\n", s.txDepth)
 		return s.tx, nil
 	}
-	//log.Printf("new transaction\n")
+	log.Printf("new transaction\n")
 	tx, err := s.conn.Beginx()
 	if err != nil {
 		return tx, err
@@ -134,10 +134,10 @@ func (s *SQLiteStore) Commit() error {
 	}
 	s.txDepth -= 1
 	if s.txDepth > 0 {
-		//log.Printf("Not commiting stacked transaction: depth=%d\n", s.txDepth)
+		log.Printf("Not commiting stacked transaction: depth=%d\n", s.txDepth)
 		return nil // No OP
 	}
-	//log.Printf("Commiting transaction: depth=%d\n", s.txDepth)
+	log.Printf("Commiting transaction: depth=%d\n", s.txDepth)
 	err := s.tx.Commit()
 	s.tx = nil
 	return err
