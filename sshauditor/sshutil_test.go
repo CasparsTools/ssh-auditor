@@ -66,7 +66,7 @@ func init() {
 		log.Printf("Can't read test key: %v", err)
 		return
 	}
-	//log.Printf("Using key %v", key)
+	log.Printf("Using key %v", key)
 	authTestCases = append(authTestCases, authTestCase{
 		hostport: "alpine-sshd-test-key:22",
 		user:     "test",
